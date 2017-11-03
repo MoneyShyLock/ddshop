@@ -1,11 +1,9 @@
 package com.zdp.ddshop.dao;
 
-
-
+import com.zdp.ddshop.pojo.po.TbContentCategory;
+import com.zdp.ddshop.pojo.po.TbContentCategoryExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import com.zdp.ddshop.pojo.po.TbContentCategoryExample;
-import com.zdp.ddshop.pojo.po.TbContentCategory;
 
 public interface TbContentCategoryMapper {
     int countByExample(TbContentCategoryExample example);
