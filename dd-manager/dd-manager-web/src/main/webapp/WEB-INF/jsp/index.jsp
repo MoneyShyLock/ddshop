@@ -66,7 +66,7 @@
                 var href = node.attributes.href;//item-add
                 var text = node.text;
                 if($('#tab').tabs('exists',text)){
-                    $('#tab').tabs('select',title)
+                    $('#tab').tabs('select',text)
                 }
                 else{
 //                debugger;

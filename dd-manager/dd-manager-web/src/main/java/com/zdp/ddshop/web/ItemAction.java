@@ -18,7 +18,7 @@ public class ItemAction {
     @ResponseBody
     @RequestMapping(value = "/item/{itemId}", method = RequestMethod.GET)
     public TbItem getById(@PathVariable("itemId") Long itemId) {
-        System.out.print(itemId);
+
         return itemService.getById(itemId);
     }
 }
