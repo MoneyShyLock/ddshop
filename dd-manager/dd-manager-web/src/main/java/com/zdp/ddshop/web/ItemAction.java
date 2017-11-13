@@ -34,7 +34,7 @@ public class ItemAction {
 
         Result<TbItemCustom> items = null;
         try {
-            items = itemService.listItemByPage(page,order,query);
+            items = itemService.listItemByPage(page, order, query);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,23 +42,18 @@ public class ItemAction {
     }
 
     @ResponseBody
-    @RequestMapping(value="/items/batch",method = RequestMethod.POST)
-    public int updateItemsById(@RequestParam("ids[]") List<Long> ids,@RequestParam("state") byte state) {
-        int count=itemService.updateItemsById(ids,state);
+    @RequestMapping(value = "/items/batch", method = RequestMethod.POST)
+    public int updateItemsById(@RequestParam("ids[]") List<Long> ids, @RequestParam("state") byte state) {
+        int count = itemService.updateItemsById(ids, state);
 
         return count;
     }
 
-    @ResponseBody
-    @RequestMapping("/item")
-    public int addItem(TbItem tbItem,String desc) {
 
-        Result<TbItemCustom> items = null;
-        try {
-            items = itemService.listItemByPage(page,order,query);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return items;
+    @RequestMapping(value = "/item", method = RequestMethod.POST)
+    public int saveItem(TbItem tbItem, @RequestParam("content") String content) {
+        String desc = content.replaceAll("<p>", "").replaceAll("</p>", "");
+        return itemService.saveItem(tbItem, desc);
     }
+
 }

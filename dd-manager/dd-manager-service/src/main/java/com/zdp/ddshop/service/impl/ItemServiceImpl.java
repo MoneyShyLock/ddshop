@@ -4,15 +4,19 @@ import com.zdp.ddshop.common.dto.Order;
 import com.zdp.ddshop.common.dto.Page;
 import com.zdp.ddshop.common.dto.Result;
 import com.zdp.ddshop.dao.PageMapper;
+import com.zdp.ddshop.dao.TbItemDescMapper;
 import com.zdp.ddshop.dao.TbItemMapper;
 import com.zdp.ddshop.pojo.po.TbItem;
+import com.zdp.ddshop.pojo.po.TbItemDesc;
 import com.zdp.ddshop.pojo.po.TbItemExample;
 import com.zdp.ddshop.pojo.vo.TbItemCustom;
 import com.zdp.ddshop.pojo.vo.TbItemQuery;
 import com.zdp.ddshop.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,6 +25,8 @@ public class ItemServiceImpl implements ItemService {
     private TbItemMapper tbItemMapper;
     @Autowired
     private PageMapper pageMapper;
+    @Autowired
+    private TbItemDescMapper tbItemDescMapper;
 
 
     @Override
@@ -61,6 +67,26 @@ public class ItemServiceImpl implements ItemService {
         criteria.andIdIn(ids);
 
         return tbItemMapper.updateByExampleSelective(record, example);
+    }
+
+    @Transactional
+    @Override
+    public int saveItem(TbItem tbItem, String desc) {
+        //将数据添加到商品表
+        tbItem.setId(1L);
+        tbItem.setCreated(new Date());
+        tbItem.setUpdated(new Date());
+        tbItem.setStatus((byte)1);
+        int count = tbItemMapper.insert(tbItem);
+
+        //将数据添加到商品描述表
+        TbItemDesc tbItemDesc =new TbItemDesc();
+        tbItemDesc.setItemDesc(desc);
+        tbItemDesc.setCreated(new Date());
+        tbItemDesc.setUpdated(new Date());
+        tbItemDesc.setItemId(1L);
+        count=tbItemDescMapper.insert(tbItemDesc);
+        return count;
     }
 
 

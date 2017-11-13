@@ -33,7 +33,7 @@ public class ItemCatServiceImpl implements ItemCatService{
 
             resultList.add(node);
         }
-        System.out.println(resultList.get(0));
+
         return resultList;
 
     }

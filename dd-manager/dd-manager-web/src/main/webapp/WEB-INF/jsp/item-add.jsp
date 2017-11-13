@@ -24,7 +24,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="label">商品价格：</td>
+                <td class="label">商品价格(元)：</td>
                 <td>
                     <input class="easyui-numberbox" type="text" id="priceView" name="priceView"
                            data-options="required:true,min:0,precision:2">
@@ -76,10 +76,20 @@
 <script>
     function submitForm() {
         $('#itemAddForm').form('submit',{
-            url:'item'
+            url:'item',
+            onSubmit:function () {
+                $('price').val($('priceView').val()*100);
+               return  $(this).form('validate');
+            },
+            success:function (data) {
+                console.log('success');
+            }
+
         });
 
     };
+    //实例化富文本编辑器
+    var ue = UE.getEditor('container');
     $('#cid').combotree({
         url: 'itemCats?parentId=0',
         required: true,
