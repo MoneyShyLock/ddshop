@@ -27,6 +27,9 @@
 
 </table>
 <script>
+    function  add() {
+        ddshop.addTabs('item-add','新增商品')
+    }
     function searchForm() {
 
         $("#dg").datagrid('load',{

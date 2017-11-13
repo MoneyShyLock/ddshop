@@ -31,6 +31,7 @@ public class ItemAction {
     @ResponseBody
     @RequestMapping("/items")
     public Result<TbItemCustom> itemsList(Page page, Order order, TbItemQuery query) {
+
         Result<TbItemCustom> items = null;
         try {
             items = itemService.listItemByPage(page,order,query);
@@ -39,11 +40,25 @@ public class ItemAction {
         }
         return items;
     }
+
     @ResponseBody
     @RequestMapping(value="/items/batch",method = RequestMethod.POST)
     public int updateItemsById(@RequestParam("ids[]") List<Long> ids,@RequestParam("state") byte state) {
         int count=itemService.updateItemsById(ids,state);
 
         return count;
+    }
+
+    @ResponseBody
+    @RequestMapping("/item")
+    public int addItem(TbItem tbItem,String desc) {
+
+        Result<TbItemCustom> items = null;
+        try {
+            items = itemService.listItemByPage(page,order,query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return items;
     }
 }
