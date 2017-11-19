@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/dd-manager/dd-manager-service/dd-manager-service.iml" filepath="$PROJECT_DIR$/dd-manager/dd-manager-service/dd-manager-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/dd-manager/dd-manager-web/dd-manager-web.iml" filepath="$PROJECT_DIR$/dd-manager/dd-manager-web/dd-manager-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/dd-parent/dd-parent.iml" filepath="$PROJECT_DIR$/dd-parent/dd-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dd-upload/dd-upload.iml" filepath="$PROJECT_DIR$/dd-upload/dd-upload.iml" />
     </modules>
   </component>
 </project>

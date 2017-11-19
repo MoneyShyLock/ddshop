@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdp.ddshop.dao.PageParamMapper">
+    <sql id="Base_Column_List">
+        p.id, p.param_data AS paramData,
+        p.item_cat_id AS itemCatId,
+        p.created,
+        p.updated,
+        c.name AS itemCatName
+
+    </sql>
+
+
+    <!--<sql id="query">
+        <where>
+            i.status != 3
+            <if test="query != null and query.title != null and query.title != ''">
+                and i.title like '%${query.title}%'
+            </if>
+            <if test="query != null and query.status != null and query.status != 0">
+                and i.status = #{query.status}
+            </if>
+        </where>
+
+    </sql>-->
+    <select id="countItems" resultType="int">
+        select count(1)
+        from tb_item_param p
+
+        <!--<include refid="query"></include>-->
+
+    </select>
+
+    <select id="listItemsByPage" resultType="com.zdp.ddshop.pojo.vo.TbItemParamCustom">
+       <!-- SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_item i
+        LEFT JOIN tb_item_cat c
+        ON i.cid = c.id
+
+        <include refid="query"></include>
+
+        <choose>
+            <when test="order != null and order.sort != null and order.order != null">
+                <foreach collection="order.orderParams" item="item" open=" ORDER BY" close="" separator=",">
+                    i.${item}
+                </foreach>
+                ,CONVERT(i.title USING gbk)
+            </when>
+            <otherwise>
+                ORDER BY i.id DESC
+            </otherwise>
+        </choose>
+        LIMIT #{page.offset},#{page.rows}-->
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_item_param p
+        LEFT JOIN tb_item_cat c
+        ON p.item_cat_id = c.id
+        LIMIT #{page.offset},#{page.rows}
+    </select>
+
+</mapper>

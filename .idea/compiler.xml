@@ -12,6 +12,7 @@
         <module name="dd-manager-pojo" />
         <module name="dd-manager-service" />
         <module name="dd-manager-web" />
+        <module name="dd-upload" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -23,6 +24,7 @@
       <module name="dd-manager-service" target="1.7" />
       <module name="dd-manager-web" target="1.7" />
       <module name="dd-parent" target="1.7" />
+      <module name="dd-upload" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

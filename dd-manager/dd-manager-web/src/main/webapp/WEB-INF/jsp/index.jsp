@@ -63,5 +63,10 @@
     ddshop.registerMenuEvent();
 
 </script>
+<%--引入日期处理库--%>
+<script src="js/moment/moment-with-locales.js"></script>
+<script>
+    moment.locale('zh-cn');
+</script>
 </body>
 </html>

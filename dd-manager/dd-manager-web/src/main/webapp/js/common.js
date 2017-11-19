@@ -21,14 +21,19 @@ var ddshop = {
            $('#tab').tabs('select',text);
        }
        else{
-//                debugger;
+
            $('#tab').tabs('add', {
                title: text,
                href: href,
                closable: true
            });
        }
-   }
+   },
+    closeTabs:function(text){
+
+            $('#tab').tabs(title);
+        }
+
 
 };
 

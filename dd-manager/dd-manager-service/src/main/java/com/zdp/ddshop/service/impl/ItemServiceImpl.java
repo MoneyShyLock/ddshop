@@ -3,6 +3,7 @@ package com.zdp.ddshop.service.impl;
 import com.zdp.ddshop.common.dto.Order;
 import com.zdp.ddshop.common.dto.Page;
 import com.zdp.ddshop.common.dto.Result;
+import com.zdp.ddshop.common.util.IDUtils;
 import com.zdp.ddshop.dao.PageMapper;
 import com.zdp.ddshop.dao.TbItemDescMapper;
 import com.zdp.ddshop.dao.TbItemMapper;
@@ -12,6 +13,8 @@ import com.zdp.ddshop.pojo.po.TbItemExample;
 import com.zdp.ddshop.pojo.vo.TbItemCustom;
 import com.zdp.ddshop.pojo.vo.TbItemQuery;
 import com.zdp.ddshop.service.ItemService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +30,8 @@ public class ItemServiceImpl implements ItemService {
     private PageMapper pageMapper;
     @Autowired
     private TbItemDescMapper tbItemDescMapper;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     @Override
@@ -72,20 +77,29 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     @Override
     public int saveItem(TbItem tbItem, String desc) {
-        //将数据添加到商品表
-        tbItem.setId(1L);
-        tbItem.setCreated(new Date());
-        tbItem.setUpdated(new Date());
-        tbItem.setStatus((byte)1);
-        int count = tbItemMapper.insert(tbItem);
+        int count=0;
+        try {
+            Long id = IDUtils.getItemId();
+            //将数据添加到商品表
+            tbItem.setId(id);
+            tbItem.setCreated(new Date());
+            tbItem.setUpdated(new Date());
+            tbItem.setStatus((byte)1);
+            count = tbItemMapper.insert(tbItem);
 
-        //将数据添加到商品描述表
-        TbItemDesc tbItemDesc =new TbItemDesc();
-        tbItemDesc.setItemDesc(desc);
-        tbItemDesc.setCreated(new Date());
-        tbItemDesc.setUpdated(new Date());
-        tbItemDesc.setItemId(1L);
-        count=tbItemDescMapper.insert(tbItemDesc);
+            //将数据添加到商品描述表
+            TbItemDesc tbItemDesc =new TbItemDesc();
+            tbItemDesc.setItemDesc(desc);
+            tbItemDesc.setCreated(new Date());
+            tbItemDesc.setUpdated(new Date());
+            tbItemDesc.setItemId(id);
+            count += tbItemDescMapper.insert(tbItemDesc);
+
+        }catch (Exception e){
+            logger.error(e.getMessage(),e);
+            e.printStackTrace();
+        }
+
         return count;
     }
 
